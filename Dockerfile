@@ -72,7 +72,7 @@ RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors htt
     wget -O models/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json https://drive.google.com/file/d/1VSA84CHmcoWPSz-ro7mJwWB1I2Oknd5A/view?usp=drive_link && \
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors https://drive.google.com/file/d/1TrB_f7a95xmRf8MGBs2LepUERhC-lXuP/view?usp=drive_link && \
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/config.json https://drive.google.com/file/d/1ZY982pH1fhu0g7heea2agvHT4H39ARn3/view?usp=drive_link && \
-    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/black-forest-labs/CatVTON/resolve/main/mix-48k-1024_attention.safetensors
+    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensorshttps://drive.google.com/file/d/1vopPat6_hW0ZD53hFGVR6K94gAnWmt-c/view?usp=drive_link
 
 RUN git clone https://huggingface.co/microsoft/Florence-2-base models/LLM/Florence-2-base
 
