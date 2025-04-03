@@ -64,26 +64,17 @@ ARG MODEL_TYPE
 WORKDIR /comfyui
 
 # Create necessary directories
-RUN mkdir -p models/checkpoints models/vae
+RUN mkdir -p models/checkpoints models/vae models/LLM models/LLM/Florence-2-base models/CatVTON models/CatVTON/sd-vae-ft-mse models/CatVTON/stable-diffusion-inpainting models/CatVTON/stable-diffusion-inpainting/scheduler models/CatVTON/stable-diffusion-inpainting/unet models/CatVTON/mix-48k-1024 models/CatVTON/mix-48k-1024/attention
 
 # Download checkpoints/vae/LoRA to include in image based on model type
-RUN if [ "$MODEL_TYPE" = "sdxl" ]; then \
-      wget -O models/checkpoints/sd_xl_base_1.0.safetensors https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors && \
-      wget -O models/vae/sdxl_vae.safetensors https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors && \
-      wget -O models/vae/sdxl-vae-fp16-fix.safetensors https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors; \
-    elif [ "$MODEL_TYPE" = "sd3" ]; then \
-      wget --header="Authorization: Bearer ${HUGGINGFACE_ACCESS_TOKEN}" -O models/checkpoints/sd3_medium_incl_clips_t5xxlfp8.safetensors https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/sd3_medium_incl_clips_t5xxlfp8.safetensors; \
-    elif [ "$MODEL_TYPE" = "flux1-schnell" ]; then \
-      wget -O models/unet/flux1-schnell.safetensors https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors && \
-      wget -O models/clip/clip_l.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors && \
-      wget -O models/clip/t5xxl_fp8_e4m3fn.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors && \
-      wget -O models/vae/ae.safetensors https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors; \
-    elif [ "$MODEL_TYPE" = "flux1-dev" ]; then \
-      wget --header="Authorization: Bearer ${HUGGINGFACE_ACCESS_TOKEN}" -O models/unet/flux1-dev.safetensors https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors && \
-      wget -O models/clip/clip_l.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors && \
-      wget -O models/clip/t5xxl_fp8_e4m3fn.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors && \
-      wget --header="Authorization: Bearer ${HUGGINGFACE_ACCESS_TOKEN}" -O models/vae/ae.safetensors https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors; \
-    fi
+RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors https://drive.google.com/file/d/1Hs5THjD-Pzj2p13aFOnK3X6rzIEN2KtJ/view?usp=drive_link && \
+    wget -O models/CatVTON/sd-vae-ft-mse/config.json https://drive.google.com/file/d/1av0d0CR5vs8qEmtzoh2rSkTr049gh3Kh/view?usp=drive_link && \
+    wget -O models/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json https://drive.google.com/file/d/1VSA84CHmcoWPSz-ro7mJwWB1I2Oknd5A/view?usp=drive_link && \
+    wget -O models/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors https://drive.google.com/file/d/1TrB_f7a95xmRf8MGBs2LepUERhC-lXuP/view?usp=drive_link && \
+    wget -O models/CatVTON/stable-diffusion-inpainting/unet/config.json https://drive.google.com/file/d/1ZY982pH1fhu0g7heea2agvHT4H39ARn3/view?usp=drive_link && \
+    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/black-forest-labs/CatVTON/resolve/main/mix-48k-1024_attention.safetensors
+
+RUN git clone https://huggingface.co/microsoft/Florence-2-base models/LLM/Florence-2-base
 
 # Stage 3: Final image
 FROM base as final
