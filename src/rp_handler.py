@@ -182,7 +182,6 @@ def get_history(prompt_id):
         dict: The history of the prompt, containing all the processing steps and results
     """
     with urllib.request.urlopen(f"http://{COMFY_HOST}/history/{prompt_id}") as response:
-        print(response.read().decode("utf-8"))
         return json.loads(response.read())
 
 
@@ -201,7 +200,7 @@ def base64_encode(img_path):
         return f"{encoded_string}"
 
 
-def process_output_images(outputs, job_id):
+def process_output_images(outputs, job_id, dLog):
     """
     This function takes the "outputs" from image generation and the job ID,
     then determines the correct way to return the image, either as a direct URL
@@ -265,12 +264,14 @@ def process_output_images(outputs, job_id):
         return {
             "status": "success",
             "message": image,
+            "log" : dLog,
         }
     else:
         print("runpod-worker-comfy - the image does not exist in the output folder")
         return {
             "status": "error",
             "message": f"the image does not exist in the specified output folder: {local_image_path}",
+            "log" : dLog,
         }
 
 
@@ -339,7 +340,7 @@ def handler(job):
         return {"error": f"Error waiting for image generation: {str(e)}"}
 
     # Get the generated image and return it as URL in an AWS bucket or as base64
-    images_result = process_output_images(history[prompt_id].get("outputs"), job["id"])
+    images_result = process_output_images(history[prompt_id].get("outputs"), job["id"],history[prompt_id])
 
     result = {**images_result, "refresh_worker": REFRESH_WORKER}
 
