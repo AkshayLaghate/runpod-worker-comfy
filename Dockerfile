@@ -66,7 +66,7 @@ WORKDIR /comfyui
 # Create necessary directories
 RUN mkdir -p models/checkpoints models/vae models/LLM models/LLM/Florence-2-base models/CatVTON models/CatVTON/sd-vae-ft-mse models/CatVTON/stable-diffusion-inpainting models/CatVTON/stable-diffusion-inpainting/scheduler models/CatVTON/stable-diffusion-inpainting/unet models/CatVTON/mix-48k-1024 models/CatVTON/mix-48k-1024/attention
 
-RUN git clone https://huggingface.co/microsoft/Florence-2-base models/LLM/Florence-2-base
+# RUN git clone https://huggingface.co/microsoft/Florence-2-base models/LLM/Florence-2-base
 
 # Download checkpoints/vae/LoRA to include in image based on model type
 RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors?download=true && \
@@ -74,8 +74,7 @@ RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors htt
     wget -O models/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json && \
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors?download=true && \
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/config.json && \
-    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/mix-48k-1024/attention/model.safetensors?download=true && \
-    wget -O models/LLM/Florence-2-base/pytorch_model.bin https://huggingface.co/microsoft/Florence-2-base/resolve/main/pytorch_model.bin?download=true
+    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/mix-48k-1024/attention/model.safetensors?download=true 
 
 # Stage 3: Final image
 FROM base as final
