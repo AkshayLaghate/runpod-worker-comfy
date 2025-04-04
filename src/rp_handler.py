@@ -182,7 +182,7 @@ def get_history(prompt_id):
         dict: The history of the prompt, containing all the processing steps and results
     """
     with urllib.request.urlopen(f"http://{COMFY_HOST}/history/{prompt_id}") as response:
-        print(f"runpod-worker-comfy - History: {response.read()}")
+        print(response.read().decode("utf-8"))
         return json.loads(response.read())
 
 
