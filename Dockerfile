@@ -64,7 +64,7 @@ ARG MODEL_TYPE
 WORKDIR /comfyui
 
 # Create necessary directories
-RUN mkdir -p models/checkpoints models/vae models/LLM models/LLM/Florence-2-base models/CatVTON models/CatVTON/sd-vae-ft-mse models/CatVTON/stable-diffusion-inpainting models/CatVTON/stable-diffusion-inpainting/scheduler models/CatVTON/stable-diffusion-inpainting/unet models/CatVTON/mix-48k-1024 models/CatVTON/mix-48k-1024/attention
+RUN mkdir -p models/checkpoints models/grounding-dino models/sams models/vae models/LLM models/LLM/Florence-2-base models/CatVTON models/CatVTON/sd-vae-ft-mse models/CatVTON/stable-diffusion-inpainting models/CatVTON/stable-diffusion-inpainting/scheduler models/CatVTON/stable-diffusion-inpainting/unet models/CatVTON/mix-48k-1024 models/CatVTON/mix-48k-1024/attention
 
 # RUN git clone https://huggingface.co/microsoft/Florence-2-base models/LLM/Florence-2-base
 
@@ -74,7 +74,9 @@ RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors htt
     wget -O models/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json && \
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors?download=true && \
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/config.json && \
-    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/mix-48k-1024/attention/model.safetensors?download=true 
+    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/mix-48k-1024/attention/model.safetensors?download=true  && \
+    wget -O models/grounding-dino/groundingdino_swint_ogc.pth https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth && \ 
+    wget -O models/sams/sam_hq_vit_h.pth https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth
 
 # Stage 3: Final image
 FROM base as final
