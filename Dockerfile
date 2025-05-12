@@ -76,7 +76,7 @@ RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors htt
     wget -O models/CatVTON/stable-diffusion-inpainting/unet/config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/config.json && \
     wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/mix-48k-1024/attention/model.safetensors?download=true  && \
     wget -O models/grounding-dino/groundingdino_swint_ogc.pth https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth && \ 
-    wget -O models/grounding-dino/GroundingDINO_SwinT_OGC.cfg https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py && \ 
+    wget -O models/grounding-dino/GroundingDINO_SwinT_OGC.cfg.py https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py && \ 
     wget -O models/sams/sam_hq_vit_h.pth https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth
 
 # Stage 3: Final image
