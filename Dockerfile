@@ -64,20 +64,18 @@ ARG MODEL_TYPE
 WORKDIR /comfyui
 
 # Create necessary directories
-RUN mkdir -p models/checkpoints models/grounding-dino models/sams models/vae models/LLM models/LLM/Florence-2-base models/CatVTON models/CatVTON/sd-vae-ft-mse models/CatVTON/stable-diffusion-inpainting models/CatVTON/stable-diffusion-inpainting/scheduler models/CatVTON/stable-diffusion-inpainting/unet models/CatVTON/mix-48k-1024 models/CatVTON/mix-48k-1024/attention
+RUN mkdir -p models/checkpoints models/vae models/loras models/diffusion_models models/text_encoders
 
 # RUN git clone https://huggingface.co/microsoft/Florence-2-base models/LLM/Florence-2-base
 
 # Download checkpoints/vae/LoRA to include in image based on model type
-RUN wget -O models/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/sd-vae-ft-mse/diffusion_pytorch_model.safetensors?download=true && \
-    wget -O models/CatVTON/sd-vae-ft-mse/config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/sd-vae-ft-mse/config.json && \
-    wget -O models/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/scheduler/scheduler_config.json && \
-    wget -O models/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/diffusion_pytorch_model.safetensors?download=true && \
-    wget -O models/CatVTON/stable-diffusion-inpainting/unet/config.json https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/stable-diffusion-inpainting/unet/config.json && \
-    wget -O models/CatVTON/mix-48k-1024/attention/model.safetensors https://huggingface.co/datasets/Deoxys/catvton/resolve/main/CatVTON/mix-48k-1024/attention/model.safetensors?download=true  && \
-    wget -O models/grounding-dino/groundingdino_swint_ogc.pth https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth && \ 
-    wget -O models/grounding-dino/GroundingDINO_SwinT_OGC.cfg.py https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py && \ 
-    wget -O models/sams/sam_hq_vit_h.pth https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth
+RUN wget -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors && \
+    wget -O models/vae/ae.safetensors https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors && \
+    wget -O models/loras/FLUX.1-Turbo-Alpha.safetensors https://huggingface.co/camenduru/FLUX.1-dev/resolve/fc63f3204a12362f98c04bc4c981a06eb9123eee/FLUX.1-Turbo-Alpha.safetensors && \
+    wget -O models/diffusion_models/flux1-dev-fp8.safetensors https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors && \
+    wget -O models/text_encoders/t5xxl_fp8_e4m3fn_scaled.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn_scaled.safetensors && \
+    wget -O models/text_encoders/clip_l.safetensors https://huggingface.co/Comfy-Org/stable-diffusion-3.5-fp8/resolve/main/text_encoders/clip_l.safetensors
+
 
 # Stage 3: Final image
 FROM base as final
