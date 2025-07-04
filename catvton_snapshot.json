@@ -4,6 +4,14 @@
         "https://github.com/ltdrdata/ComfyUI-Manager.git": {
             "hash": "8b121e1352b6507c34595ae57f862328edd38ad2",
             "disabled": false
+        },
+        "https://github.com/yolain/ComfyUI-Easy-Use": {
+            "hash": "282eedfea677007f0de455cec2fe20fb76b43229",
+            "disabled": false
+        },
+        "https://github.com/ChenDarYen/ComfyUI-NAG.git": {
+            "hash": "dc97225953c85a7aef5906020b9832d9ec89452d",
+            "disabled": false
         }
     },
     "file_custom_nodes": [
