@@ -154,7 +154,7 @@
         "OhMyRunPod==0.2.4": "",
         "onnxruntime==1.22.0": "",
         "open_clip_torch==2.32.0": "",
-        "opencv-python==4.11.0.86": "",
+        "opencv-python==4.6.0.66": "",
         "overrides==7.7.0": "",
         "packaging==25.0": "",
         "pandocfilters==1.5.1": "",
