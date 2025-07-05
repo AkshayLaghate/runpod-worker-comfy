@@ -1,5 +1,4 @@
-# Stage 1: Base image with common dependencies
-FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04 as base
+FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04 AS base
 
 # Prevents prompts from packages asking for user input during installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -26,8 +25,10 @@ RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 # Install comfy-cli
 RUN pip install comfy-cli
 
+RUN pip install opencv-python
+
 # Install ComfyUI
-RUN /usr/bin/yes | comfy --workspace /comfyui install --cuda-version 11.8 --nvidia --version 0.3.33
+RUN /usr/bin/yes | comfy --workspace /comfyui install --cuda-version 12.6 --nvidia --version 0.3.33
 
 # Change working directory to ComfyUI
 WORKDIR /comfyui
